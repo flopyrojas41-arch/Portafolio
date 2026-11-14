@@ -1,0 +1,533 @@
+/* style.css */
+
+/* ===== VARIABLES ===== */
+:root {
+  --verde-oscuro: #2f4a3a;
+  --azul-lago: #3f7fa8;
+  --crema: #f7f3e8;
+  --tierra: #8a6a4a;
+  --fuente-titulo: Georgia, "Times New Roman", serif;
+  --fuente-texto: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Regla general: lo que tiene hidden no ocupa lugar ni tapa nada */
+[hidden] { display: none !important; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fuente-texto);
+  background: #111;
+  color: var(--crema);
+}
+
+/* ===== PORTADA ===== */
+.portada {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 1.2s ease;
+}
+
+.portada__fondo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.portada::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20, 35, 25, 0.65) 0%, rgba(20, 35, 25, 0) 55%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.portada__contenido {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem 1.5rem 12vh;
+  max-width: 720px;
+}
+
+.portada__nombre {
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  line-height: 1.2;
+  margin: 0 0 0.6rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.portada__frase {
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  font-style: italic;
+  margin: 0 0 2rem;
+  opacity: 0.95;
+}
+
+.portada__boton {
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--crema);
+  background: rgba(47, 74, 58, 0.45);
+  border: 1px solid rgba(247, 243, 232, 0.8);
+  border-radius: 999px;
+  padding: 0.8rem 1.9rem;
+  cursor: pointer;
+  backdrop-filter: blur(3px);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.portada__boton:hover,
+.portada__boton:focus-visible {
+  background: rgba(63, 127, 168, 0.55);
+  transform: translateY(-2px);
+  outline: 3px solid var(--crema);
+  outline-offset: 3px;
+}
+
+/* ===== PAISAJE INTERACTIVO ===== */
+.recorrido {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--verde-oscuro);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.recorrido.visible { opacity: 1; }
+
+.recorrido__fondo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Zonas clicables: invisibles hasta que pasa el cursor o se enfoca con teclado */
+.zona {
+  position: absolute;
+  background: transparent;
+  border: 2px dashed transparent; /* para ver las zonas, cambiá transparent por rgba(247,243,232,0.8) */
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background 0.4s ease, border-color 0.4s ease;
+  z-index: 1;
+}
+
+.zona:hover,
+.zona:focus-visible {
+  background: rgba(247, 243, 232, 0.15);
+  border-color: rgba(247, 243, 232, 0.8);
+  outline: none;
+}
+
+/* ===== BOTÓN CERRAR (compartido) ===== */
+.btn-cerrar {
+  float: right;
+  background: none;
+  border: 1px solid var(--crema);
+  color: var(--crema);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  cursor: pointer;
+  font-family: var(--fuente-texto);
+}
+
+.btn-cerrar:focus-visible {
+  outline: 3px solid var(--crema);
+  outline-offset: 3px;
+}
+
+/* ===== SECCIONES A PANTALLA COMPLETA (base común) ===== */
+.reflejo,
+.proyecto {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.2rem;
+  overflow-y: auto;
+  background: center / cover no-repeat;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.reflejo.visible,
+.proyecto.visible { opacity: 1; }
+
+/* Velo suave para que el texto se lea sobre la imagen */
+.reflejo::before,
+.proyecto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(20, 45, 35, 0.35), rgba(20, 45, 35, 0.8));
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Contenido por encima del velo */
+.caja {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  line-height: 1.6;
+  padding: 1.8rem;
+  border-radius: 16px;
+  background: rgba(47, 74, 58, 0.6);
+}
+
+/* ===== REFLEJOS DE MÍ (lago) ===== */
+.reflejo {
+  background-image: url("assets/lago/lago.jpg");
+}
+
+.reflejo .caja {
+  max-width: 560px;
+}
+
+.reflejo h2,
+.proyecto h2 {
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  margin: 0.2rem 0 1rem;
+}
+
+/* La foto queda sobre el agua, con los bordes difuminados y ondas suaves */
+.reflejo__foto {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0.5rem 0 1rem;
+  filter: url(#ondas);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, #000 60%, transparent 100%);
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.reflejo.visible .reflejo__foto { opacity: 1; }
+
+/* ===== PROYECTO LIBRARIAN (margaritas) ===== */
+.proyecto {
+  background-image: url("assets/librarian/margaritas.jpg");
+}
+
+.proyecto .caja {
+  max-width: 860px;
+}
+
+.proyecto__etiqueta {
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.proyecto h3 {
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin: 1.6rem 0 0.6rem;
+}
+
+/* Las piezas van dentro de una tarjeta clara: se ven como muestra, no a pantalla completa */
+.pieza {
+  margin-top: 1.4rem;
+  padding: 1.2rem;
+  border-radius: 12px;
+  background: rgba(247, 243, 232, 0.96);
+  color: #2b2b2b;
+}
+
+.pieza h3 {
+  color: var(--verde-oscuro);
+  margin-top: 0;
+}
+
+.pieza img {
+  display: block;
+  width: 100%;
+  height: auto;   /* conserva la composición original, sin recortes */
+  margin-top: 0.9rem;
+  border-radius: 6px;
+}
+
+/* ===== MOVIMIENTO ===== */
+/* Quien prefiere menos movimiento no ve transiciones */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== ADAPTACIÓN A CELULARES ===== */
+@media (max-width: 600px) {
+  .caja { padding: 1.2rem; }
+  .btn-cerrar { font-size: 0.9rem; }
+}
+/* ===== AJUSTES: botón Cerrar visible e imágenes completas ===== */
+/* El botón Cerrar queda fijo arriba a la derecha, siempre visible */
+.btn-cerrar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  float: none;
+  background: rgba(47, 74, 58, 0.95);
+  font-size: 1rem;
+}
+/* Deja espacio arriba para que el botón no tape el título */
+.reflejo,
+.proyecto {
+  padding-top: 4.5rem;
+}
+/* Las piezas se muestran completas, sin recortar */
+.pieza img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+/* ===== AJUSTE: que todo el contenido de la sección se pueda desplazar ===== */
+/* En vez de centrar la caja (lo que corta la parte de arriba), la alineamos al inicio */
+.reflejo,
+.proyecto {
+  display: block;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 4.5rem 1.2rem 3rem; /* deja lugar arriba para el botón Cerrar */
+}
+.reflejo .caja,
+.proyecto .caja {
+  margin: 0 auto;
+}
+/* ===== ZONAS NUEVAS DEL PAISAJE ===== */
+/* Las secciones nuevas usan la portada como fondo hasta tener sus imágenes */
+.proyecto--cerca,
+#seccion-arbol,
+#seccion-camino,
+#seccion-medanos {
+  background-image: url("assets/paisaje/portada.png");
+}
+/* Las zonas siempre reciben clics cuando el paisaje está visible */
+.recorrido.visible .zona {
+  pointer-events: auto;
+  z-index: 5;
+}
+/* ===== ESCANEO DE VIDA (lupinos) ===== */
+#proyecto-escaneo {
+  background-image: url("assets/escaneo/fondo-lupinos.jpg");
+}
+/* Botón visual para abrir el video */
+.enlace-video {
+  display: inline-block;
+  margin-top: 1.6rem;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--crema);
+  border-radius: 999px;
+  background: rgba(63, 127, 168, 0.55);
+  color: var(--crema);
+  text-decoration: none;
+  font-weight: 600;
+}
+.enlace-video:hover,
+.enlace-video:focus-visible {
+  background: rgba(63, 127, 168, 0.85);
+  outline: 3px solid var(--crema);
+  outline-offset: 3px;
+}
+/* ===== PLAYSTATION (cerca) ===== */
+#proyecto-cerca {
+  background-image: url("assets/playstation/cerca.jpg");
+}
+/* ===== ESTRATEGIAS (árbol): fondo de madera ===== */
+#seccion-arbol {
+  background-image: url("assets/estrategias/madera.jpg");
+}
+}
+#seccion-arbol .bloque {
+  margin-top: 1.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(247, 243, 232, 0.25);
+}
+#seccion-arbol .bloque h3::before {
+  content: "❧ ";
+  opacity: 0.7;
+}
+#seccion-arbol .sub {
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin: 1rem 0 0.4rem;
+}
+/* Habilidades y herramientas en forma de pastillas */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.chip {
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: rgba(63, 127, 168, 0.35);
+  border: 1px solid rgba(247, 243, 232, 0.5);
+}
+/* Objetos personales con otro tono, para distinguirlos de las herramientas */
+.chip--objeto {
+  background: rgba(138, 106, 74, 0.45);
+}
+/* Cualidades como hojas: cada una lleva una pequeña hoja delante */
+.hojas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.6rem;
+}
+.hojas li {
+  padding: 0.6rem 0.9rem 0.6rem 2.2rem;
+  position: relative;
+  background: rgba(247, 243, 232, 0.08);
+  border-radius: 10px 2px 10px 2px;
+}
+.hojas li::before {
+  content: "🍃";
+  position: absolute;
+  left: 0.7rem;
+  top: 0.55rem;
+}
+.cierre-seccion {
+  margin-top: 1.8rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+/* ===== MI RECORRIDO (camino) ===== */
+#seccion-camino {
+  background-image: url("assets/camino/camino.jpg");
+}
+.sub-camino {
+  opacity: 0.85;
+  margin: 0 0 1.4rem;
+}
+/* Sendero: una línea vertical que une los pasos, como un camino */
+.sendero {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 0.4rem;
+  position: relative;
+}
+.sendero::before {
+  content: "";
+  position: absolute;
+  left: 1.05rem;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(247, 243, 232, 0.8) 0 8px,
+    transparent 8px 14px
+  );
+}
+.paso {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1.8rem;
+}
+.paso:last-child { padding-bottom: 0; }
+.paso__marca {
+  flex: 0 0 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(47, 74, 58, 0.9);
+  border: 1px solid rgba(247, 243, 232, 0.6);
+  z-index: 1;
+}
+.paso__cuerpo {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  background: rgba(247, 243, 232, 0.08);
+}
+.paso__cuando {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin: 0;
+}
+.paso__lugar {
+  font-style: italic;
+  margin: 0.2rem 0 0.6rem;
+  opacity: 0.9;
+}
+.paso h3 {
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  font-size: 1.25rem;
+  margin: 0.2rem 0;
+}
+/* ===== CONTACTO (horizonte y bosque): fondo de montañas ===== */
+#seccion-contacto {
+  background-image: url("assets/contacto/bosque.jpg");
+}
+#seccion-contacto .caja {
+  text-align: center;
+}
+#seccion-contacto .contacto__mail {
+  display: inline-block;
+  margin: 0.3rem 0;
+}
+/* Los enlaces de contacto siempre reciben el clic */
+#seccion-contacto .contacto__mail {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+/* ===== CONTACTO: texto blanco y foto ===== */
+#seccion-contacto,
+#seccion-contacto a,
+#seccion-contacto a:visited {
+  color: var(--crema);
+}
+#seccion-contacto .contacto__mail {
+  color: var(--crema);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  word-break: break-all;
+}
+.contacto__foto {
+  display: block;
+  width: min(100%, 320px);
+  height: auto;
+  margin: 1rem auto 1.2rem;
+  border-radius: 12px;
+  border: 2px solid rgba(247, 243, 232, 0.8);
+  object-fit: cover;
+}

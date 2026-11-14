@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belén Florencia Rojas Valverde · Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- PORTADA -->
+  <section id="portada" class="portada">
+    <img class="portada__fondo" src="assets/paisaje/portada.png"
+         alt="Lago de agua azul rodeado de bosques, montañas y flores silvestres">
+
+    <div class="portada__contenido">
+      <h1 class="portada__nombre">Belén Florencia Rojas Valverde</h1>
+      <p class="portada__frase">Descubrime</p>
+      <button id="btn-comenzar" class="portada__boton" type="button">
+        Comenzar recorrido
+      </button>
+    </div>
+  </section>
+
+  <!-- PAISAJE INTERACTIVO -->
+
+  <main id="recorrido" class="recorrido" hidden>
+    <img class="recorrido__fondo" src="assets/paisaje/portada.png" alt="">
+
+    <!-- Zonas clicables del paisaje -->
+    <button class="zona" type="button" data-seccion="sobre-mi"
+            style="left:20%; top:65%; width:50%; height:15%;"
+            aria-label="Lago: Reflejos de mí"></button>
+
+    <button class="zona" type="button" data-seccion="librarian"
+            style="left:5%; top:85%; width:20%; height:10%;"
+            aria-label="Margaritas: Proyecto Librarian"></button>
+
+    <button class="zona" type="button" data-seccion="cerca"
+            style="left:60%; top:60%; width:22%; height:18%;"
+            aria-label="Cerca: Proyecto PlayStation"></button>
+
+    <button class="zona" type="button" data-seccion="arbol"
+            style="left:40%; top:25%; width:20%; height:30%;"
+            aria-label="Árbol: Mis habilidades, naturaleza y elementos de trabajo"></button>
+
+    <button class="zona" type="button" data-seccion="camino"
+            style="left:35%; top:80%; width:30%; height:12%;"
+            aria-label="Camino: Mi recorrido"></button>
+
+      <button class="zona" type="button" data-seccion="contacto"
+            style="left:70%; top:40%; width:20%; height:12%;"
+            aria-label="Horizonte"></button>
+
+    <!-- Zona de los lupinos: Escaneo de vida -->
+    <button class="zona" type="button" data-seccion="lupinos"
+            style="left:12%; top:55%; width:18%; height:14%;"
+            aria-label="Lupinos: Escaneo de vida"></button>
+
+    <!-- REFLEJOS DE MÍ (se abre al tocar el lago) -->
+    <section class="reflejo" id="reflejo" hidden aria-labelledby="reflejo-titulo">
+      <!-- Filtro que deforma la foto como si se viera reflejada en el agua -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <filter id="ondas">
+          <feTurbulence type="fractalNoise" baseFrequency="0.01 0.04" numOctaves="2" seed="3" result="ruido"/>
+          <feDisplacementMap in="SourceGraphic" in2="ruido" scale="6"/>
+        </filter>
+      </svg>
+
+      <div class="caja">
+        <button class="btn-cerrar" type="button" data-cerrar="reflejo">Cerrar ✕</button>
+
+        <h2 id="reflejo-titulo">Reflejos de mí</h2>
+
+        <img class="reflejo__foto" src="assets/lago/foto.png"
+             alt="Fotografía de Belén Florencia Rojas Valverde">
+
+        <p>Soy estudiante de Comunicación Social, orientación Publicidad de la UBA. Me interesa explorar distintas formas de comunicar, contar historias e investigar. Disfruto el proceso de buscar ideas, conectar conceptos y aportar propuestas para desarrollarlas.</p>
+        <p>Me considero curiosa, observadora y detallista. Me interesa seguir explorando áreas como la creatividad, el planning, la investigación y la producción audiovisual.</p>
+      </div>
+    </section>
+
+    <!-- PROYECTO LIBRARIAN (se abre al tocar las margaritas) -->
+    <section class="proyecto" id="proyecto-librarian" hidden aria-labelledby="lib-titulo">
+      <div class="caja">
+        <button class="btn-cerrar" type="button" data-cerrar="proyecto-librarian">Cerrar ✕</button>
+
+        <p class="proyecto__etiqueta">Proyecto 1 · Proyecto ficticio</p>
+        <h2 id="lib-titulo">Librería Librarian</h2>
+
+        <p>Proyecto de campaña y activación para renovar la experiencia de una librería y multiespacio cultural, en el marco de su aniversario número 60.</p>
+
+        <h3>Mi participación</h3>
+        <ul>
+          <li>Conceptualización de la campaña.</li>
+          <li>Propuesta de la activación principal.</li>
+          <li>Desarrollo y diseño de tres piezas gráficas específicas.</li>
+        </ul>
+
+        <div class="pieza">
+          <h3>1. Folleto tríptico</h3>
+          <p>Idea y desarrollo de una pieza de seis caras para difundir la activación principal de la librería por su aniversario. Incluye las actividades de la jornada y destaca la actividad solidaria, el invitado y el sorteo.</p>
+          <img src="assets/librarian/triptico.png"
+               alt="Cara frontal del folleto tríptico de Librarian por su aniversario de 60 años">
+          <img src="assets/librarian/triptico2.png"
+               alt="Cara posterior del folleto tríptico de Librarian, con el invitado Jorge Reboredo y los 60 años">
+        </div>
+
+        <div class="pieza">
+          <h3>2. Cartel de invitación</h3>
+          <p>Pieza para la vía pública que invita a quienes circulen por la zona. Comunica la fecha del evento y las actividades que se desarrollarán.</p>
+          <img src="assets/librarian/cartel.png"
+               alt="Cartel de invitación al aniversario de Librarian">
+        </div>
+
+        <!-- Pieza 3: se agrega cuando llegue la imagen original -->
+      </div>
+    </section>
+  <!-- ESCANEO DE VIDA (se abre al tocar los lupinos) -->
+    <section class="proyecto" id="proyecto-escaneo" hidden aria-labelledby="escaneo-titulo">
+      <div class="caja">
+        <button class="btn-cerrar" type="button" data-cerrar="proyecto-escaneo">Cerrar ✕</button>
+        <p class="proyecto__etiqueta">Proyecto 2 · Cortometraje</p>
+        <h2 id="escaneo-titulo">Escaneo de vida</h2>
+        <p>Objetivo: Desarrollar una pieza audiovisual de ficción de entre 5 y 7 minutos, llevando adelante todas las etapas de producción: desde la creación del guion y la construcción narrativa hasta la planificación, el rodaje y la realización final. Explorar el lenguaje audiovisual como herramienta para contar historias y transmitir ideas.</p>
+        <p>La historia presenta a una joven estudiante que vende su iris. Luego comienza a recibir movimientos bancarios, registros y actividad en aplicaciones que no reconoce. Al intentar averiguar qué sucede, llega a un banco donde se encuentra con distintas versiones de sí misma. El cortometraje explora cuestiones vinculadas con la identidad, la tecnología y la clonación.</p>
+        <h3>Mi participación</h3>
+        <ul>
+          <li>Propuesta de la idea inicial vinculada con la venta del iris.</li>
+          <li>Interpretación de la protagonista.</li>
+          <li>Codirección y filmación junto a mis compañeros.</li>
+        </ul>
+        <div class="pieza">
+          <h3>Escenas del cortometraje</h3>
+          <img src="assets/escaneo/collage.png"
+               alt="Collage de escenas del cortometraje Escaneo de vida">
+        </div>
+        <a class="enlace-video" href="https://drive.google.com/file/d/1JX2pbcrWgZ7WTG3EBaBjG5FL8id9W_0d/view?usp=drive_link"
+           target="_blank" rel="noopener">
+          ▶ Ver el cortometraje
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+    <!-- PROYECTO PLAYSTATION (se abre al tocar la cerca) -->
+    <section class="proyecto" id="proyecto-cerca" hidden aria-labelledby="ps-titulo">
+      <div class="caja">
+        <button class="btn-cerrar" type="button" data-cerrar="proyecto-cerca">Cerrar ✕</button>
+        <p class="proyecto__etiqueta">Proyecto 3 · Campaña publicitaria</p>
+        <h2 id="ps-titulo">PlayStation · Joystick DualSense</h2>
+        <p>Propuesta de campaña orientada a mostrar el funcionamiento del producto, mantener la fidelidad con el cliente e incentivar la participación del público.</p>
+        <p><strong>Concepto creativo:</strong> «Jugá con todos los botones».</p>
+        <h3>Mi participación</h3>
+        <ul>
+          <li>Propuesta de merchandising.</li>
+          <li>Diseño de la propuesta de pop-up.</li>
+          <li>Desarrollo de la dinámica de activación.</li>
+        </ul>
+        <div class="pieza">
+          <h3>Propuesta de activación</h3>
+          <p>Los participantes reciben un joystick de cartón al que le faltan los cuatro botones característicos del control: equis, círculo, cuadrado y triángulo. Para completarlo, deben recorrer distintos locales del shopping y conseguir las calcomanías correspondientes. Al completar el joystick, pueden acceder a merchandising y un cupón de descuento.</p>
+          <p>Además, se propone un espacio de prueba con consolas PlayStation y controles DualSense para que los visitantes puedan experimentar el producto.</p>
+        </div>
+        <div class="pieza">
+          <h3>Merchandising</h3>
+          <img src="assets/playstation/merchandising.png"
+               alt="Merchandising de PlayStation DualSense: llaveros, pines, stickers, lapicera, fidget y tote bag">
+        </div>
+        <div class="pieza">
+          <h3>Pop-up</h3>
+          <img src="assets/playstation/popup.png"
+               alt="Composición completa del pop-up de PlayStation DualSense en el shopping">
+        </div>
+      </div>
+    </section>
+
+    <!-- ESTRATEGIAS (se abre al tocar el árbol) -->
+    <section class="proyecto" id="seccion-arbol" hidden aria-labelledby="arbol-titulo">
+      <div class="caja">
+        <button class="btn-cerrar" type="button" data-cerrar="seccion-arbol">Cerrar ✕</button>
+        <h2 id="arbol-titulo">Estrategias</h2>
+        <!-- Habilidades -->
+        <div class="bloque">
+          <h3>Habilidades</h3>
+          <div class="chips">
+            <span class="chip">Investigación</span>
+            <span class="chip">Planning y planificación</span>
+            <span class="chip">Redacción</span>
+            <span class="chip">Análisis de discursos</span>
+            <span class="chip">Diseño de presentaciones</span>
+            <span class="chip">Producción audiovisual</span>
+          </div>
+        </div>
+        <!-- Mi naturaleza -->
+        <div class="bloque">
+          <h3>Mi naturaleza</h3>
+          <ul class="hojas">
+            <li>Observadora</li>
+            <li>Curiosa</li>
+            <li>Puntual</li>
+            <li>Resolutiva</li>
+            <li>Detallista</li>
+            <li>Apasionada</li>
+            <li>Orientada al trabajo en equipo</li>
+          </ul>
+        </div>
+        <!-- Mis elementos de trabajo -->
+        <div class="bloque">
+          <h3>Mis elementos de trabajo</h3>
+          <p class="sub">Herramientas digitales</p>
+          <div class="chips">
+            <span class="chip">Canva</span>
+            <span class="chip">PowerPoint</span>
+            <span class="chip">Excel</span>
+            <span class="chip">CapCut</span>
+          </div>
+          <p class="sub">Objetos personales</p>
+          <div class="chips">
+            <span class="chip chip--objeto">Anteojos</span>
+            <span class="chip chip--objeto">Block de notas</span>
+          </div>
+        </div>
+        <p class="cierre-seccion">Me gusta aportar ideas, investigar y participar en el desarrollo visual de los proyectos. Disfruto trabajar en equipo, aprender de otras perspectivas y adaptarme a distintos desafíos.</p>
+      </div>
+    </section>
+
+    <!-- MI RECORRIDO (se abre al tocar el camino) -->
+    <section class="proyecto" id="seccion-camino" hidden aria-labelledby="camino-titulo">
+      <div class="caja">
+        <button class="btn-cerrar" type="button" data-cerrar="seccion-camino">Cerrar ✕</button>
+        <h2 id="camino-titulo">Mi recorrido</h2>
+        <p class="sub-camino">Formación y experiencia, paso a paso.</p>
+        <ol class="sendero">
+          <!-- Formación -->
+          <li class="paso">
+            <span class="paso__marca" aria-hidden="true">🌱</span>
+            <div class="paso__cuerpo">
+              <p class="paso__cuando">2023 · Actualidad</p>
+              <h3>Licenciatura en Comunicación Social</h3>
+              <p class="paso__lugar">Universidad de Buenos Aires (UBA) · Orientación Publicidad</p>
+              <p>Cuarto año de la carrera. Durante mi formación desarrollé conocimientos y experiencias vinculadas con la investigación, el planning, el análisis de discursos, la redacción, la comunicación y la producción audiovisual.</p>
+            </div>
+          </li>
+          <!-- Experiencia laboral -->
+          <li class="paso">
+            <span class="paso__marca" aria-hidden="true">🍃</span>
+            <div class="paso__cuerpo">
+              <p class="paso__cuando">Desde 2023</p>
+              <h3>Atención y gestión de clientes</h3>
+              <p class="paso__lugar">Agencia de gestión y cobranza para una entidad bancaria</p>
+              <p>Me desempeño en la atención y gestión de clientes a través de WhatsApp. Entre mis tareas se encuentran la comunicación de alternativas de regularización, la generación y el seguimiento de acuerdos, y la gestión administrativa de documentación. También actúo como intermediaria entre los clientes, el área administrativa y supervisión, facilitando la circulación de información y el seguimiento de cada caso.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- CONTACTO (horizonte y bosque) -->
+    <section class="proyecto" id="seccion-contacto" hidden aria-labelledby="contacto-titulo">
+      <div class="caja">
+        <button class="btn-cerrar" type="button" data-cerrar="seccion-contacto">Cerrar ✕</button>
+        <h2 id="contacto-titulo">¿Exploramos nuevos horizontes?</h2>
+        <img class="contacto__foto" src="assets/contacto/foto-contacto.png"
+             alt="Fotografía de Belén Florencia Rojas Valverde">
+        <p>«Lista para seguir descubriendo y construyendo nuevas formas de comunicar».</p>
+        <p>
+          <a class="contacto__mail" href="mailto:bflorenciarojas@gmail.com">
+            bflorenciarojas@gmail.com
+        <button class="btn-cerrar" type="button" id="copiar-mail"
+                style="float:none; margin-top:0.6rem;">Copiar correo</button>
+          </a>
+        </p>
+        <p>
+          <a class="contacto__mail" href="tel:+5401133329086">
+            011 3332 9086
+          </a>
+        </p>
+      </div>
+    </section>
